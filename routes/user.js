@@ -2,12 +2,22 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../knex');
 
-router.get('/',(req, res, next)=>{
-  res.send({'message': 'in get'} );
+router.get('/hunts/:id',(req, res, next)=>{
+  let id = req.params.id;
+  knex('hunt_users')
+    .select('*')
+    .where('user_id', id)
+    .then((userHunts)=>{
+      knex('hunts')
+        .select(['id', 'name', 'description', 'total_clues', 'total_points'])
+        .where('id', userHunts[0].hunt_id)
+        .then((hunt)=>{
+          res.send(hunt);
+        })
+    })
 })
 
 router.post('/', (req, res, next)=>{
-  console.log(req.body);
   knex('users')
     .select('*')
     .where('email', req.body.email)
