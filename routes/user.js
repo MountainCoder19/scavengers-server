@@ -4,16 +4,24 @@ const knex = require('../knex');
 
 router.get('/hunts/:id',(req, res, next)=>{
   let id = req.params.id;
-  knex('hunt_users')
-    .select('*')
-    .where('user_id', id)
-    .then((userHunts)=>{
-      knex('hunts')
-        .select(['id', 'name', 'description', 'total_clues', 'total_points'])
-        .where('id', userHunts[0].hunt_id)
-        .then((hunt)=>{
-          res.send(hunt);
-        })
+  // NOTE: route for user specific hunts
+  // knex('hunt_users')
+  //   .select('*')
+  //   .where('user_id', id)
+  //   .then((userHunts)=>{
+  //     knex('hunts')
+  //       .select(['id', 'name', 'description', 'total_clues', 'total_points'])
+  //       .where('id', userHunts[0].hunt_id)
+  //       .then((hunt)=>{
+  //         res.send(hunt);
+  //       })
+  //   })
+  // NOTE: MVP rout
+  knex('hunts')
+    .select(['id', 'name', 'description', 'total_clues', 'total_points'])
+    .where('id', 1)
+    .then((hunt)=>{
+      res.send(hunt)
     })
 })
 
