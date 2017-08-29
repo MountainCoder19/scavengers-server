@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const knex = require('knex');
 const path = require('path');
 const cors = require('cors');
-const watson = require('./routes/watson.js');
+// const watson = require('./routes/watson.js');
 const user = require('./routes/user.js');
 app.use(cors());
 const hunts = require('./routes/hunts.js')
@@ -16,7 +16,11 @@ app.use(bodyParser.json());
 // app.use(express.static(path.join('XXXXXX')));
 app.use('/user', user);
 app.use('/hunts', hunts);
-// app.use('/classify', watson);
+// app.use('/classify', watson)
+
+app.use('/classify', (req,res,err)=>{
+  console.log(req)
+})
 
 const port = process.env.PORT || 3000;
 

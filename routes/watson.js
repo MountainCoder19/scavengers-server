@@ -12,17 +12,20 @@ var visual_recognition = watson.visual_recognition({
   version_date: '2016-05-19',
 });
 
+
 var params = {
   images_file: fs.createReadStream('./newImages/pearl-mall-boulder.jpg'),
   'classifier_ids':['clues_302663712','clues_1123435983','clues_174302206','clues_1384175267','clues_1436159940']
 };
+router.post('/',(req,res,next)=>{
 
-visual_recognition.classify(params, function(err, res) {
-  if (err)
+  visual_recognition.classify(params, function(err, res) {
+    if (err)
     console.log(err);
-  else
+    else
     console.log(JSON.stringify(res, null, 2));
-});
+  });
+})
 
 // visual_recognition.listClassifiers({},
 //   function(err, response) {
