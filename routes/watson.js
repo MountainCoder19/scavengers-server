@@ -31,10 +31,18 @@ router.post('/',(req,res,next)=>{
 //   function(err, response) {
 //     if (err)
 //     console.log(err);
-//     else
-//     console.log(JSON.stringify(response, null, 2));
-//   }
-// );
+//   else
+//     console.log(JSON.stringify(res, null, 2));
+// });
+//
+// // visual_recognition.listClassifiers({},
+// //   function(err, response) {
+// //     if (err)
+// //     console.log(err);
+// //     else
+// //     console.log(JSON.stringify(response, null, 2));
+// //   }
+// // );
 
 
 module.exports = router;
