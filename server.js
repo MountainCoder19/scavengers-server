@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 // app.use(express.static(path.join('XXXXXX')));
 app.use('/user', user);
 app.use('/hunts', hunts);
-// app.use('/classify', watson);
+app.use('/classify', watson);
 
 const port = process.env.PORT || 3000;
 

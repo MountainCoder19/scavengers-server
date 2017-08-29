@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../knex');
-const fs = require('fs');
+
 
 router.get('/:id', (req, res, next)=>{
   let id = req.params.id;
@@ -14,12 +14,12 @@ router.get('/:id', (req, res, next)=>{
     })
 })
 router.post('/', (req, res, next)=>{
-  const imgdata = req.body.data;
-  const path = './temp/userimg.jpg'
-  const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
-  fs.writeFile(path, base64Data, 'base64', (err, suc) => {
-      console.log(suc);
-  });
+  // const imgdata = req.body.data;
+  // const path = './temp/userimg.jpg'
+  // const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+  // fs.writeFile(path, base64Data, 'base64', (err, suc) => {
+  //     console.log(suc);
+  // });
   // var buffer = new Buffer(req.body.data, 'base64');
   // console.log(buffer);
 })
