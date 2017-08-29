@@ -1,5 +1,5 @@
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable("hunt-clues", (table)=>{
+  return knex.schema.createTable("hunt_clues", (table)=>{
     table.increments();
     table.integer("hunt_id").notNullable();
     table.integer("clue_id").notNullable();
@@ -7,5 +7,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable("hunt-clues");
+  return knex.schema.dropTable("hunt_clues");
 };
