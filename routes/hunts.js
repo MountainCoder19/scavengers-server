@@ -5,11 +5,13 @@ const knex = require('../knex');
 
 router.get('/:id', (req, res, next)=>{
   let id = req.params.id;
-  knex('hunt_clues')
-    .select('clue_id', 'description', 'photo_url')
+  knex('user_huntclue')
+    .select('clue_id', 'completed')
     .where('hunt_id', id)
-    .join('clues','hunt_clues.clue_id', '=','clues.id')
+    .join('hunts','user_huntclue.hunt_id', '=','hunts.id')
+    .select('description')
     .then((clues)=>{
+      console.log(clues)
       res.send(clues)
     })
 })
