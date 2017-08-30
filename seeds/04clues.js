@@ -6,44 +6,44 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('clues').insert([
         {
-          description: 'clue number 1',
-          photo_url: 'placeholderurl'
+          description: 'On the prowl for a bronze older lady? We\'re banking on the fact you might be able to find one here... sort of.',
+          photo_url: 'clues_1123435983'
         },
         {
-          description: 'clue number 2',
-          photo_url: 'placeholderurl'
+          description: 'Tailgating is rude on the highway, but this Chevy doesn\'t mind.',
+          photo_url: 'clues_1436159940'
         },
         {
-          description: 'clue number 3',
-          photo_url: 'placeholderurl'
+          description: 'Where do you find the boldest rock shows downtown?',
+          photo_url: 'clues_1436159940'
         },
         {
-          description: 'clue number 4',
-          photo_url: 'placeholderurl'
+          description: 'The OG clock.',
+          photo_url: 'clues_302663712'
         },
         {
-          description: 'clue number 5',
-          photo_url: 'placeholderurl'
+          description: 'Gary, Bugs, Kermit, and your favorite Cleaver family member are all waiting to play leap frog with you.',
+          photo_url: 'clues_302663712'
         },
         {
-          description: 'clue number 6',
-          photo_url: 'placeholderurl'
+          description: 'Elken John. John Elkway. Whatever you call him - he\'s got a great rack.',
+          photo_url: 'clues_1384175267'
         },
         {
-          description: 'clue number 7',
-          photo_url: 'placeholderurl'
+          description: 'Ever courted a floating head?',
+          photo_url: 'clues_1384175267'
         },
         {
-          description: 'clue number 8',
-          photo_url: 'placeholderurl'
+          description: 'Here you can win the Bolder Boulder every time.',
+          photo_url: 'clues_302663712'
         },
         {
-          description: 'clue number 9',
-          photo_url: 'placeholderurl'
+          description: 'Stuck between a rock and a hard place?',
+          photo_url: 'clues_1436159940'
         },
         {
-          description: 'clue number 10',
-          photo_url: 'placeholderurl'
+          description: 'Find the man trapped in the manhole.',
+          photo_url: 'clues_1384175267'
         }
       ]);
     }).then(function(){
