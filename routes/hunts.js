@@ -13,6 +13,17 @@ router.get('/:id', (req, res, next)=>{
       res.send(clues)
     })
 })
+
+router.get('/clues/:id', (req, res, next)=>{
+  let id = req.params.id;
+  knex('clues')
+    .select('description')
+    .where('id', id)
+    .then((clues)=>{
+      res.send(clues[0])
+    })
+})
+
 router.post('/', (req, res, next)=>{
   // const imgdata = req.body.data;
   // const path = './temp/userimg.jpg'
