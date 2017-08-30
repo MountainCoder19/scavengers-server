@@ -53,18 +53,14 @@ router.post('/', (req,res,next)=>{
         console.log('error', err);
         else
         result=JSON.stringify(response, null, 2)
-        // console.log(JSON.stringify(res, null, 2))
+        // console.log(JSON.stringify(response, null, 2))
         res.send(result)
       })
     }).catch((error) => {
      console.log('error 2', error);
-   })
-  })
-
-
-
-
-})
+   })//END OF CATCH STATEMENT OF RESIZE
+ })//END OF WRITE FILE
+})//END OF POST
 
 
 
