@@ -41,7 +41,7 @@ router.get('/:id/?', (req, res, next)=>{
             console.log('new user', newClues);
             res.send(newClues)
           })
-        }, 100)
+        }, 1000)
       )
       }else{
         console.log('old user');
