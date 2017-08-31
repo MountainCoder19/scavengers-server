@@ -33,7 +33,7 @@ router.post('/:endpoint', (req,res,next)=>{
   const imgdata = req.body.data;
   // var imgpath = path.join(__dirname, './temp/userimg.jpg')
 
-  const imgpath = '../temp/userimg.jpg'
+  const imgpath = './temp/userimg.jpg'
   const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
   console.log('WRITEFILE', imgpath, typeof imgpath);
   var configPath = path.join(__dirname, './temp/userimg.jpg')
