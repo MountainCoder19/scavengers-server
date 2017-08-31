@@ -42,17 +42,18 @@ router.post('/', (req, res, next)=>{
     });
 })
 
-router.patch('/:clue', (req, res, next)=>{
+router.patch('/:clue/?', (req, res, next)=>{
   let clue = req.params.clue;
+  let userId = req.query.user
   console.log('clue ', clue)
   knex('user_huntclue')
-    .where('clue_id', clue)
+    .whereRaw(`clue_id = ${clue} AND user_id = ${userId}`)
     .update({
       completed: true
     })
     .returning('*')
     .then((data)=>console.log(data))
-  res.send('in post with user id ');
+  res.send('in post with user id ')
 })
 
 router.delete('/:id', (req, res, next)=>{
