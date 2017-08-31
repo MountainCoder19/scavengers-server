@@ -32,14 +32,12 @@ router.post('/:endpoint', (req,res,next)=>{
   let endpoint = req.params.endpoint;
   const imgdata = req.body.data;
   var imgpath = path.join(process.cwd(), '/temp/userimg.jpg')
-
   // const imgpath = './temp/userimg.jpg'
   const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
   console.log('WRITEFILE', imgpath, typeof imgpath);
-  var configPath = path.join(__dirname, './temp/userimg.jpg')
 
   fs.writeFile(imgpath, base64Data, 'base64', (err, suc) => {
-    const filePathsToResize = ["./temp/userimg.jpg"] // it can be just one, but still has to be an array, you can give it all of your images, it will just spit out images that are already below the configured max size (2MB) without doing any processing, so no need to check on your end
+    const filePathsToResize = [imgpath] // it can be just one, but still has to be an array, you can give it all of your images, it will just spit out images that are already below the configured max size (2MB) without doing any processing, so no need to check on your end
     // const Resizer = new resizer.Resizer(filePathsToResize)
     // // use the Resizer.resize() method as a simple promise
     // Resizer.resize().then((filePaths) => {
