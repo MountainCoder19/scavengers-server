@@ -26,8 +26,9 @@ const resizer = require('../image-resizer/resizer');
 //
 //   return setTimout(response, 5000);
 // }
-router.post('/', (req,res,next)=>{
+router.post('/:endpoint', (req,res,next)=>{
 
+  let endpoint = req.params.endpoint;
   const imgdata = req.body.data;
   const path = './temp/userimg.jpg'
   const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
@@ -40,20 +41,26 @@ router.post('/', (req,res,next)=>{
      console.log(filePaths) // paths to the resized images
      var params = {
         images_file: fs.createReadStream(filePaths[0]),
-        'classifier_ids':['clues_302663712','clues_1123435983','clues_174302206','clues_1384175267','clues_1436159940']
+        'classifier_ids':[`${endpoint}`]
       }
       var visual_recognition = watson.visual_recognition({
         api_key: process.env.WATSON_API,
         version: 'v3',
         version_date: '2016-05-19',
       })
-      let result;
       visual_recognition.classify(params, function(err, response) {
         if (err)
         console.log('error', err);
         else
-        result=JSON.stringify(response, null, 2)
         // console.log(JSON.stringify(response, null, 2))
+        var resultTemp= [];
+        let classesResponse = response.images[0].classifiers[0].classes;
+        classesResponse.forEach(el=>{
+          if(el.score > .70){
+            resultTemp.push(el)
+          }
+        })
+        let result = JSON.stringify(resultTemp, null, 2)
         res.send(result)
       })
     }).catch((error) => {
