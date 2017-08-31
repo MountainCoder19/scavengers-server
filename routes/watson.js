@@ -35,7 +35,7 @@ router.post('/:endpoint', (req,res,next)=>{
 
   // const imgpath = './temp/userimg.jpg'
   const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
-  console.log('WRITEFILE', path, typeof path);
+  console.log('WRITEFILE', imgpath, typeof imgpath);
   var configPath = path.join(__dirname, './temp/userimg.jpg')
 
   fs.writeFile(imgpath, base64Data, 'base64', (err, suc) => {
