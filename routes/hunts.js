@@ -10,6 +10,7 @@ router.get('/:id', (req, res, next)=>{
     .where('hunt_id', id)
     .join('hunts','user_huntclue.hunt_id', '=','hunts.id')
     .select('description')
+    .orderBy('clue_id')
     .then((clues)=>{
       res.send(clues)
     })
@@ -18,7 +19,7 @@ router.get('/:id', (req, res, next)=>{
 router.get('/clues/:id', (req, res, next)=>{
   let id = req.params.id;
   knex('clues')
-    .select('description', 'photo_url')
+    .select('description', 'photo_url', 'photo_class')
     .where('id', id)
     .then((clues)=>{
       res.send(clues[0])

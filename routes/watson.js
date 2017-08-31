@@ -52,11 +52,11 @@ router.post('/:endpoint', (req,res,next)=>{
         if (err)
         console.log('error', err);
         else
-        // console.log(JSON.stringify(response, null, 2))
+        console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
         let classesResponse = response.images[0].classifiers[0].classes;
         classesResponse.forEach(el=>{
-          if(el.score > .70){
+          if(el.score > .60){
             resultTemp.push(el)
           }
         })
