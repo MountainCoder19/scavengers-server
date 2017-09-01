@@ -37,7 +37,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         'classifier_ids':[`${endpoint}`]
       }
       var visual_recognition = watson.visual_recognition({
-        api_key: PROCESS.ENV.WATSON_API,
+        api_key: process.ENV.WATSON_API,
         version: 'v3',
         version_date: '2016-05-20',
       })
