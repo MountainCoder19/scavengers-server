@@ -38,8 +38,8 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       }
       var visual_recognition = watson.visual_recognition({
         api_key: process.env.WATSON_API,
-        version: 'v3',
-        version_date: '2016-05-19',
+        // version: 'v3',
+        // version_date: '2016-05-19',
       })
       visual_recognition.classify(params, function(err, response) {
         if (err)
@@ -47,7 +47,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         else
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
+
         let classesResponse = response.images[0].classifiers[0].classes;
+
         classesResponse.forEach(el=>{
           if(el.score > .60){
             resultTemp.push(el)
