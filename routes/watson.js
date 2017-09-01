@@ -63,8 +63,8 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         let result = JSON.stringify(resultTemp, null, 2)
         res.send(result)
       })
-    // }).catch((error) => {
-    //  console.log('error 2', error);
+    }).catch((error) => {
+     console.log('error 2', error);
    })//END OF CATCH STATEMENT OF RESIZE
  // }) //END OF WRITE FILE
 }) //END OF POST
