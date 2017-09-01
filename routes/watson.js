@@ -28,12 +28,12 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   // fs.writeFile('userimg.jpg', base64Data, 'base64', (err, suc) => {
   //   const filePathsToResize = [imgpath]
     // it can be just one, but still has to be an array, you can give it all of your images, it will just spit out images that are already below the configured max size (2MB) without doing any processing, so no need to check on your end
-    // const Resizer = new resizer.Resizer(filePathsToResize)
+    const Resizer = new resizer.Resizer(file.filepath)
     // // use the Resizer.resize() method as a simple promise
-    // Resizer.resize().then((filePaths) => {
+    Resizer.resize().then((filePaths) => {
     //  console.log('FILEPATHS POST RESIZER', filePaths) // paths to the resized images
      var params = {
-        images_file: fs.createReadStream(file.path),
+        images_file: fs.createReadStream(filePaths),
         'classifier_ids':[`${endpoint}`]
       }
       var visual_recognition = watson.visual_recognition({
@@ -61,7 +61,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       })
     // }).catch((error) => {
     //  console.log('error 2', error);
-  //  })//END OF CATCH STATEMENT OF RESIZE
+   })//END OF CATCH STATEMENT OF RESIZE
  // }) //END OF WRITE FILE
 }) //END OF POST
 
