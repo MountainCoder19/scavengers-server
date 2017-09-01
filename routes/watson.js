@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
+router.post('https://scavengers-server.herokuapp.com/:endpoint', upload.single('file'), (req,res,next)=>{
   let file = req.file;
   let meta = req.body;
   console.log(file);
