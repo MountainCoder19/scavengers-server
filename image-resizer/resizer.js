@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const config = require("./image-config");
 const promisify = require("promisify-node");
-const ffmpeg_1 = require("./ffmpeg");
+const ffmpeg_1 = require("./ffmpeg.js");
 const path = require("path");
 const fs = promisify('fs');
 class Resizer {
