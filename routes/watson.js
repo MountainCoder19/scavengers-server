@@ -28,7 +28,7 @@ const multer= require('multer');
 //   return setTimout(response, 5000);
 // }
 const storage = multer.diskStorage({
-  destination: './files',
+  destination: './temp',
   filename(req, file, cb) {
     cb(null, `${new Date()}-${file.originalname}`);
   },
@@ -37,6 +37,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
+  console.log(req.FormData.file);
   const file = req.file; // file passed from client
   const meta = req.body; // all other values passed from the client, like name, etc..
 
@@ -54,33 +55,33 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     // // use the Resizer.resize() method as a simple promise
     // Resizer.resize().then((filePaths) => {
     //  console.log('FILEPATHS POST RESIZER', filePaths) // paths to the resized images
-     var params = {
-        images_file: file,
-        'classifier_ids':[`${endpoint}`]
-      }
-      console.log('PARAMS', params);
-      console.log("FILE", file);
-      var visual_recognition = watson.visual_recognition({
-        api_key: process.env.WATSON_API,
-        version: 'v3',
-        version_date: '2016-05-19',
-      })
-      visual_recognition.classify(params, function(err, response) {
-        if (err)
-        console.log('error', err);
-        else
-        console.log(JSON.stringify(response, null, 2))
-        var resultTemp= [];
-        let classesResponse = response.images[0].classifiers[0].classes;
-        classesResponse.forEach(el=>{
-          if(el.score > .60){
-            resultTemp.push(el)
-          }
-        })
-        let result = JSON.stringify(resultTemp, null, 2)
-        console.log('RESULT', result);
-        res.send(result)
-      })
+    //  var params = {
+    //     images_file: file,
+    //     'classifier_ids':[`${endpoint}`]
+    //   }
+      // console.log('PARAMS', params);
+      // console.log("FILE", file);
+      // var visual_recognition = watson.visual_recognition({
+      //   api_key: process.env.WATSON_API,
+      //   version: 'v3',
+      //   version_date: '2016-05-19',
+      // })
+      // visual_recognition.classify(params, function(err, response) {
+      //   if (err)
+      //   console.log('error', err);
+      //   else
+      //   console.log(JSON.stringify(response, null, 2))
+      //   var resultTemp= [];
+      //   let classesResponse = response.images[0].classifiers[0].classes;
+      //   classesResponse.forEach(el=>{
+      //     if(el.score > .60){
+      //       resultTemp.push(el)
+      //     }
+      //   })
+      //   let result = JSON.stringify(resultTemp, null, 2)
+      //   console.log('RESULT', result);
+      //   res.send(result)
+      // })
     // }).catch((error) => {
     //  console.log('error 2', error);
   //  })//END OF CATCH STATEMENT OF RESIZE
