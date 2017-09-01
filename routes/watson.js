@@ -23,8 +23,8 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
-  console.log('PATH',  file.path);
-  console.log('NAME', file.filepath);
+  console.log("FILE", file);
+  // console.log('NAME', file.filepath);
   // fs.writeFile('userimg.jpg', base64Data, 'base64', (err, suc) => {
   //   const filePathsToResize = [imgpath]
     // it can be just one, but still has to be an array, you can give it all of your images, it will just spit out images that are already below the configured max size (2MB) without doing any processing, so no need to check on your end
