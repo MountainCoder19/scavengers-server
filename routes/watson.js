@@ -32,7 +32,6 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   });
   //  See Configuration Options for more details and additional configuration methods.
 
-
   cloudinary.uploader.upload(file.path, function(result) {
 
     var params = {
@@ -46,23 +45,24 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       version_date: '2016-05-20',
     })
     visual_recognition.classify(params, function(err, response) {
-      if (err)
-      console.log('error',params.images_file);
-      console.log('error', err);
-      else
-      console.log('success', params.images_file);
-      console.log(JSON.stringify(response, null, 2))
-      var resultTemp= [];
+      if (err){
+        console.log('error',params.images_file);
+        console.log('error', err);
+      } else {
+        console.log('success', params.images_file)
+        console.log(JSON.stringify(response, null, 2))
+        var resultTemp= [];
 
-      let classesResponse = response.images[0].classifiers[0].classes;
+        let classesResponse = response.images[0].classifiers[0].classes;
 
-      classesResponse.forEach(el=>{
-        if(el.score > .60){
-          resultTemp.push(el)
-        }
-      })
-      let result = JSON.stringify(resultTemp, null, 2)
-      res.send(result)
+        classesResponse.forEach(el=>{
+          if(el.score > .60){
+            resultTemp.push(el)
+          }
+        })
+        let result = JSON.stringify(resultTemp, null, 2)
+        res.send(result)
+      }
     })
   },{crop:'fit', width:200});
 
