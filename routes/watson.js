@@ -17,14 +17,20 @@ const storage = multer.diskStorage({
     cb(null, 'tempImg.jpg');
   }
 });
-
 const upload = multer({storage});
+
+const storageSmall = multer.diskStorage({
+  destination: './filesSmall',
+  filename(req, file, cb){
+    cb(null, 'tempImgSmall.jpg');
+  }
+});
+const uploadSmall = multer({storageSmall});
 
 router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
-  console.log(fs.createReadStream(file.path));
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -33,9 +39,10 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   //  See Configuration Options for more details and additional configuration methods.
 
   cloudinary.uploader.upload(file.path, function(result) {
-    upload.single('result.url')
+    uploadSmall.single('result.url')
+    console.log(uploadSmall.single('result.url'))
     var params = {
-      images_file: fs.createReadStream('./files/tempImg.jpg'),
+      images_file: fs.createReadStream('./filesSmall/tempImgSmall.jpg'),
       'classifier_ids':[`${endpoint}`],
     }
 
@@ -51,7 +58,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
 
-        console.log('this is response.. find image classifers classes...', response)
+        console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
 
         let classesResponse = response.images[0].classifiers[0].classes;
         if(!classesResponse){
@@ -67,7 +74,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         res.send(result)
       }
     })
-  },{crop:'fit', width:100});
+  },{crop:'fit', width:200, quality:'auto'});
 
 
   // console.log('NAME', file.filepath);
