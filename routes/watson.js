@@ -7,7 +7,7 @@ const ffmpeg = require('../image-resizer/ffmpeg.js');
 // require('dotenv').load();
 const watson = require('watson-developer-cloud');
 const resizer = require('../image-resizer/resizer');
-// const multer = require('multer');
+const multer = require('multer');
 const cloudinary = require('cloudinary');
 const axios = require('axios');
 
