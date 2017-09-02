@@ -51,6 +51,8 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
 
+        console.log('this is response.. find image classifers classes...', response)
+
         let classesResponse = response.images[0].classifiers[0].classes;
         if(!classesResponse){
           res.sendStatus(404)
@@ -65,7 +67,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         res.send(result)
       }
     })
-  },{crop:'fit', width:150});
+  },{crop:'fit', width:100});
 
 
   // console.log('NAME', file.filepath);
