@@ -54,29 +54,32 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       version: 'v3',
       version_date: '2016-05-20'
     })
-    visual_recognition.classify(params, function(err, response) {
-      if (err) {
-        console.log('error', err)
-      } else {
-        console.log(JSON.stringify(response, null, 2))
-        var resultTemp= [];
 
-        console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
+    setTimeout(()=>{
+      visual_recognition.classify(params, function(err, response) {
+        if (err) {
+          console.log('error', err)
+        } else {
+          console.log(JSON.stringify(response, null, 2))
+          var resultTemp= [];
 
-        let classesResponse = response.images[0].classifiers[0].classes;
-        if(!classesResponse){
-          res.sendStatus(404)
-        }
+          console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
 
-        classesResponse.forEach(el=>{
-          if(el.score > .60){
-            resultTemp.push(el)
+          let classesResponse = response.images[0].classifiers[0].classes;
+          if(!classesResponse){
+            res.sendStatus(404)
           }
-        })
-        let result = JSON.stringify(resultTemp, null, 2)
-        res.send(result)
-      }
-    })
+
+          classesResponse.forEach(el=>{
+            if(el.score > .60){
+              resultTemp.push(el)
+            }
+          })
+          let result = JSON.stringify(resultTemp, null, 2)
+          res.send(result)
+        }
+      })
+    }, 3000)
   })
 
 
