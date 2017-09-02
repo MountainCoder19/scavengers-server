@@ -36,7 +36,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   cloudinary.uploader.upload(file.path, function(result) {
     console.log(result)
     var params = {
-      images_file: fs.createReadStream(filePaths[0]),
+      images_file: result.url,
       'classifier_ids':[`${endpoint}`]
     }
     var visual_recognition = watson.visual_recognition({
@@ -62,7 +62,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       let result = JSON.stringify(resultTemp, null, 2)
       res.send(result)
     })
-  },{bytes:2000});
+  },{crop:'fill', width:200, height:200});
 
 
   // console.log('NAME', file.filepath);
