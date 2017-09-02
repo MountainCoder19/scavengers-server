@@ -24,7 +24,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
-
+  console.log(fs.createReadStream(file.path));
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -46,7 +46,6 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     })
     visual_recognition.classify(params, function(err, response) {
       if (err) {
-        console.log('error', params.images_file)
         console.log('error', err)
       } else {
         console.log('success', params.images_file)
@@ -64,7 +63,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         res.send(result)
       }
     })
-  },{crop:'fit', width:200});
+  },{crop:'fit', width:150});
 
 
   // console.log('NAME', file.filepath);
