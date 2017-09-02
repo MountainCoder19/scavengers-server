@@ -56,6 +56,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     })
 
     setTimeout(()=>{
+      while(!'./filesSmall/tempImgSmall.jpg'){
+        console.log('testing for small image file')
+      }
       visual_recognition.classify(params, function(err, response) {
         if (err) {
           console.log('error', err)
@@ -81,6 +84,8 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       })
     }, 3000)
   })
+
+
 
 
   // console.log('NAME', file.filepath);
