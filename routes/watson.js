@@ -41,6 +41,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   cloudinary.uploader.upload(file.path, function(result) {
     uploadSmall.single('result.url')
     console.log(uploadSmall.single('result.url'))
+  },{crop:'fit', width:200, quality:'auto'})
+  .then((cloudUrl)=>{
+    console.log('we fucking made it fam', cloudUrl)
     var params = {
       images_file: fs.createReadStream('./filesSmall/tempImgSmall.jpg'),
       'classifier_ids':[`${endpoint}`],
@@ -74,7 +77,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         res.send(result)
       }
     })
-  },{crop:'fit', width:200, quality:'auto'});
+  })
 
 
   // console.log('NAME', file.filepath);
