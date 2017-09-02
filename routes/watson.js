@@ -56,6 +56,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     })
 
     setTimeout(()=>{
+      console.log('we made it to the timeout')
       while(!'./filesSmall/tempImgSmall.jpg'){
         console.log('testing for small image file')
       }
@@ -82,7 +83,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
           res.send(result)
         }
       })
-    }, 3000)
+    }, 1000)
   })
 
 
