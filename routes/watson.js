@@ -14,7 +14,7 @@ const axios = require('axios');
 const storage = multer.diskStorage({
   destination: './files',
   filename(req, file, cb){
-    cb(null, `${new Date()}-${file.originalname}`);
+    cb(null, 'tempImg.jpg');
   }
 });
 
@@ -33,9 +33,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   //  See Configuration Options for more details and additional configuration methods.
 
   cloudinary.uploader.upload(file.path, function(result) {
-
+    upload.single('result.url')
     var params = {
-      images_file: result.secure_url,
+      images_file: fs.createReadStream('./files/tempImg.jpg'),
       'classifier_ids':[`${endpoint}`]
     }
 
