@@ -46,10 +46,10 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     })
     visual_recognition.classify(params, function(err, response) {
       if (err) {
-        console.log('error', params[images_file])
-        // console.log('error', err)
+        console.log('error', params.images_file)
+        console.log('error', err)
       } else {
-        console.log('success', params[images_file])
+        console.log('success', params.images_file)
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
 
