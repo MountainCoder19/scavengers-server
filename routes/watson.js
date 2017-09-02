@@ -36,7 +36,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     upload.single('result.url')
     var params = {
       images_file: fs.createReadStream('./files/tempImg.jpg'),
-      'classifier_ids':[`${endpoint}`]
+      'classifier_ids':[`${endpoint}`],
     }
 
     var visual_recognition = watson.visual_recognition({
@@ -48,11 +48,13 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       if (err) {
         console.log('error', err)
       } else {
-        console.log('success', params.images_file)
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
 
         let classesResponse = response.images[0].classifiers[0].classes;
+        if(!classesResponse){
+          res.sendStatus(404)
+        }
 
         classesResponse.forEach(el=>{
           if(el.score > .60){
