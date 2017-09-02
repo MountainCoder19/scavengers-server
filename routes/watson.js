@@ -35,7 +35,34 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
 
   cloudinary.uploader.upload(file.path, function(result) {
     console.log(result)
-  });
+    var params = {
+      images_file: fs.createReadStream(filePaths[0]),
+      'classifier_ids':[`${endpoint}`]
+    }
+    var visual_recognition = watson.visual_recognition({
+      api_key: process.env.WATSON_API,
+      version: 'v3',
+      version_date: '2016-05-20',
+    })
+    visual_recognition.classify(params, function(err, response) {
+      console.log(process.env.WATSON_API);
+      if (err)
+      console.log('error', err);
+      else
+      console.log(JSON.stringify(response, null, 2))
+      var resultTemp= [];
+
+      let classesResponse = response.images[0].classifiers[0].classes;
+
+      classesResponse.forEach(el=>{
+        if(el.score > .60){
+          resultTemp.push(el)
+        }
+      })
+      let result = JSON.stringify(resultTemp, null, 2)
+      res.send(result)
+    })
+  },{bytes:2000});
 
 
   // console.log('NAME', file.filepath);
@@ -50,33 +77,6 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       // console.log('TYPE OF FILEPATHS', typeof filePaths);
       // console.log('TYPE OF FILEPATHS AT 0', typeof filePaths[0])
     //  console.log('FILEPATHS POST RESIZER', filePaths) // paths to the resized images
-    //  var params = {
-    //     images_file: fs.createReadStream(filePaths[0]),
-    //     'classifier_ids':[`${endpoint}`]
-    //   }
-    //   var visual_recognition = watson.visual_recognition({
-    //     api_key: process.env.WATSON_API,
-    //     version: 'v3',
-    //     version_date: '2016-05-20',
-    //   })
-    //   visual_recognition.classify(params, function(err, response) {
-    //     console.log(process.env.WATSON_API);
-    //     if (err)
-    //     console.log('error', err);
-    //     else
-    //     console.log(JSON.stringify(response, null, 2))
-    //     var resultTemp= [];
-     //
-    //     let classesResponse = response.images[0].classifiers[0].classes;
-     //
-    //     classesResponse.forEach(el=>{
-    //       if(el.score > .60){
-    //         resultTemp.push(el)
-    //       }
-    //     })
-    //     let result = JSON.stringify(resultTemp, null, 2)
-    //     res.send(result)
-    //   })
     // }).catch((error) => {
     //  console.log('error 2', error);
   //  })//END OF CATCH STATEMENT OF RESIZE
