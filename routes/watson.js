@@ -34,34 +34,34 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
 
 
   cloudinary.uploader.upload(file.path, function(result) {
-    console.log(result.url)
+
     var params = {
-      images_file: result.url,
+      images_file: result.secure_url,
       'classifier_ids':[`${endpoint}`]
     }
-    // var visual_recognition = watson.visual_recognition({
-    //   api_key: process.env.WATSON_API,
-    //   version: 'v3',
-    //   version_date: '2016-05-20',
-    // })
-    // visual_recognition.classify(params, function(err, response) {
-    //   if (err)
-    //   console.log('error', err);
-    //   else
-    //   console.log(JSON.stringify(response, null, 2))
-    //   var resultTemp= [];
-    //
-    //   let classesResponse = response.images[0].classifiers[0].classes;
-    //
-    //   classesResponse.forEach(el=>{
-    //     if(el.score > .60){
-    //       resultTemp.push(el)
-    //     }
-    //   })
-      // let result = JSON.stringify(resultTemp, null, 2)
-      // res.send(result)
-    // })
-  },{crop:'fill', width:200, height:200});
+    var visual_recognition = watson.visual_recognition({
+      api_key: process.env.WATSON_API,
+      version: 'v3',
+      version_date: '2016-05-20',
+    })
+    visual_recognition.classify(params, function(err, response) {
+      if (err)
+      console.log('error', err);
+      else
+      console.log(JSON.stringify(response, null, 2))
+      var resultTemp= [];
+
+      let classesResponse = response.images[0].classifiers[0].classes;
+
+      classesResponse.forEach(el=>{
+        if(el.score > .60){
+          resultTemp.push(el)
+        }
+      })
+      let result = JSON.stringify(resultTemp, null, 2)
+      res.send(result)
+    })
+  },{crop:'fit', width:200});
 
 
   // console.log('NAME', file.filepath);
