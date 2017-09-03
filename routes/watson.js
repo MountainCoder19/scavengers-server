@@ -40,7 +40,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
 
   cloudinary.uploader.upload(file.path, function(result) {
     uploadSmall.single('result.url')
-    console.log(uploadSmall.single('result.url'))
+    console.log(process.cwd('filesSmall'))
   },{crop:'fit', width:200, quality:'auto'})
   // .then((cloudUrl)=>{
   //   console.log('we fucking made it fam', cloudUrl)
