@@ -40,11 +40,13 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
 
   cloudinary.uploader.upload(file.path, function(result) {
     uploadSmall.single('result.url')
+    console.log(storageSmall);
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     console.log(cloudUrl);
-    let pic = cloudinary.image(cloudUrl.url, {type:"fetch"})
-    console.log(pic);
+    cloudinary.image(cloudUrl.url, {type:"fetch"}).then((data)=>{
+      console.log(data.getElementsByTagName('img').src);
+    })
     // var params = {
     //   images_file:pic,
     //   'classifier_ids':[`${endpoint}`],
