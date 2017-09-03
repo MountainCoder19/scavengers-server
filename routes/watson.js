@@ -55,9 +55,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         var resultTemp= [];
 
         if(response.images[0].classifiers[0] === undefined){
-          res.sendStatus(404)
+          return res.sendStatus(404)
         }
-        
+
         let classesResponse = response.images[0].classifiers[0].classes;
         console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
 
