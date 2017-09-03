@@ -27,7 +27,7 @@ class Resizer {
                 if (this.imageData.length > 0) {
                     return yield this.runResizeWorkflow();
                 }
-                return this.imagePaths;
+                return this.imagePaths[0];
             }
             catch (error) {
                 throw error;

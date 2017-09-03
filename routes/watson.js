@@ -37,7 +37,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   Resizer.resize().then((filePaths) => {
     console.log('filepaths', filePaths);
   var params = {
-    images_file:fs.createReadStream(['./filesSmall/tempImg.jpg']),
+    images_file:fs.createReadStream(filePaths),
     'classifier_ids':[`${endpoint}`],
   }
   console.log("PARAMS", params);
