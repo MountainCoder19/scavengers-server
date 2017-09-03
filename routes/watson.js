@@ -43,7 +43,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     console.log(cloudUrl);
-    let pic = cloudinary.image(cloudUrl.url.getElementsByTagName('img').src[0], {type:"fetch"})
+    let pic = cloudinary.image(cloudUrl.url, {type:"fetch"})
     console.log(pic);
     // var params = {
     //   images_file:pic,
