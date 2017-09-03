@@ -47,7 +47,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     version_date: '2016-05-20'
   })
     visual_recognition.classify(params, function(err, response) {
-      console.log('we fucking made it fam', params)
+      console.log('WATSON CLASSIFY', params)
 
       if (err) {
         console.log('error', err)
