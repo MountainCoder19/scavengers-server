@@ -41,6 +41,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   cloudinary.uploader.upload(file.path, function(result) {
     // uploadSmall.single('result.url')
     // console.log(process.cwd('filesSmall'))
+    var imgdata = result.url
     var imgpath = path.join(process.cwd(), '/temp/userimg.jpg')
     // const imgpath = './temp/userimg.jpg'
    const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
