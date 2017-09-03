@@ -32,45 +32,45 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   let meta = req.body;
   let endpoint = req.params.endpoint;
 
-    const Resizer = new resizer.Resizer([file.path])
-    // // use the Resizer.resize() method as a simple promise
-    Resizer.resize().then((filePaths) => {
-      console.log('filepaths', filePaths);
-    var params = {
-      images_file:fs.createReadStream(['./filesSmall/tempImg.jpg']),
-      'classifier_ids':[`${endpoint}`],
-    }
-    console.log("PARAMS", params);
-    var visual_recognition = watson.visual_recognition({
-      api_key: process.env.WATSON_API,
-      version: 'v3',
-      version_date: '2016-05-20'
-    })
-      visual_recognition.classify(params, function(err, response) {
-        console.log('we fucking made it fam', params)
+  const Resizer = new resizer.Resizer([file.path])
+  // // use the Resizer.resize() method as a simple promise
+  Resizer.resize().then((filePaths) => {
+    console.log('filepaths', filePaths);
+  var params = {
+    images_file:fs.createReadStream(['./filesSmall/tempImg.jpg']),
+    'classifier_ids':[`${endpoint}`],
+  }
+  console.log("PARAMS", params);
+  var visual_recognition = watson.visual_recognition({
+    api_key: process.env.WATSON_API,
+    version: 'v3',
+    version_date: '2016-05-20'
+  })
+    visual_recognition.classify(params, function(err, response) {
+      console.log('we fucking made it fam', params)
 
-        if (err) {
-          console.log('error', err)
-        } else {
-          console.log(JSON.stringify(response, null, 2))
-          var resultTemp= [];
+      if (err) {
+        console.log('error', err)
+      } else {
+        console.log(JSON.stringify(response, null, 2))
+        var resultTemp= [];
 
-          console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
+        console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
 
-          let classesResponse = response.images[0].classifiers[0].classes;
-          if(!classesResponse){
-            res.sendStatus(404)
-          }
-
-          classesResponse.forEach(el=>{
-            if(el.score > .60){
-              resultTemp.push(el)
-            }
-          })
-          let result = JSON.stringify(resultTemp, null, 2)
-          res.send(result)
+        let classesResponse = response.images[0].classifiers[0].classes;
+        if(!classesResponse){
+          res.sendStatus(404)
         }
-      })
+
+        classesResponse.forEach(el=>{
+          if(el.score > .60){
+            resultTemp.push(el)
+          }
+        })
+        let result = JSON.stringify(resultTemp, null, 2)
+        res.send(result)
+      }
+    })
   })//END OF THEN
   .catch(err=>{console.log('Error', err);})
 
