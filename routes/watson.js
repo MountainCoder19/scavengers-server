@@ -40,7 +40,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
 
   cloudinary.uploader.upload(file.path, function(result) {
     // uploadSmall.single('result.url')
-    console.log(storageSmall.getFilename());
+    // console.log(storageSmall);
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     console.log(cloudUrl);
