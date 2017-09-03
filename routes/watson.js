@@ -40,54 +40,46 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
 
   cloudinary.uploader.upload(file.path, function(result) {
     uploadSmall.single('result.url')
-    // console.log(fs.createReadStream())
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     console.log(cloudUrl);
     let pic = cloudinary.image(cloudUrl.url.getElementsByTagName('img').src[0], {type:"fetch"})
     console.log(pic);
-    var params = {
-      images_file:pic,
-      'classifier_ids':[`${endpoint}`],
-    }
-    console.log('params', params);
-    var visual_recognition = watson.visual_recognition({
-      api_key: process.env.WATSON_API,
-      version: 'v3',
-      version_date: '2016-05-20'
-    })
-  //   // setTimeout(()=>{
-  //   //   console.log('we made it to the timeout')
-  //   //   while(!'./filesSmall/tempImgSmall.jpg'){
-  //   //     console.log('testing for small image file')
-  //   //   }
-      visual_recognition.classify(params, function(err, response) {
-        console.log('we fucking made it fam', params)
-
-        if (err) {
-          console.log('error', err)
-        } else {
-          console.log(JSON.stringify(response, null, 2))
-          var resultTemp= [];
-
-          console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
-
-          let classesResponse = response.images[0].classifiers[0].classes;
-          if(!classesResponse){
-            res.sendStatus(404)
-          }
-
-          classesResponse.forEach(el=>{
-            if(el.score > .60){
-              resultTemp.push(el)
-            }
-          })
-          let result = JSON.stringify(resultTemp, null, 2)
-          res.send(result)
-        }
-      })
-  //   // }, 1000)
-  })
+    // var params = {
+    //   images_file:pic,
+    //   'classifier_ids':[`${endpoint}`],
+    // }
+    // var visual_recognition = watson.visual_recognition({
+    //   api_key: process.env.WATSON_API,
+    //   version: 'v3',
+    //   version_date: '2016-05-20'
+    // })
+      // visual_recognition.classify(params, function(err, response) {
+      //   console.log('we fucking made it fam', params)
+      //
+      //   if (err) {
+      //     console.log('error', err)
+      //   } else {
+      //     console.log(JSON.stringify(response, null, 2))
+      //     var resultTemp= [];
+      //
+      //     console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
+      //
+      //     let classesResponse = response.images[0].classifiers[0].classes;
+      //     if(!classesResponse){
+      //       res.sendStatus(404)
+      //     }
+      //
+      //     classesResponse.forEach(el=>{
+      //       if(el.score > .60){
+      //         resultTemp.push(el)
+      //       }
+      //     })
+      //     let result = JSON.stringify(resultTemp, null, 2)
+      //     res.send(result)
+      //   }
+      // })
+  })//END OF THEN
 
 
 
