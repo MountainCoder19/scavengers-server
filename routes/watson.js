@@ -39,50 +39,61 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   //  See Configuration Options for more details and additional configuration methods.
 
   cloudinary.uploader.upload(file.path, function(result) {
-    uploadSmall.single('result.url')
-    console.log(process.cwd('filesSmall'))
+    // uploadSmall.single('result.url')
+    // console.log(process.cwd('filesSmall'))
+    var imgpath = path.join(process.cwd(), '/temp/userimg.jpg')
+    // const imgpath = './temp/userimg.jpg'
+   const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+   console.log('WRITEFILE', imgpath, typeof imgpath);
+
+   fs.writeFile('userimg.jpg', base64Data, 'base64', (err, suc) => {
+     const filePathsToResize = [imgpath];
+     var params = {
+         images_file: fs.createReadStream('./filesSmall/tempImgSmall.jpg'),
+         'classifier_ids':[`${endpoint}`],
+       }
+
+      var visual_recognition = watson.visual_recognition({
+         api_key: process.env.WATSON_API,
+         version: 'v3',
+         version_date: '2016-05-20'
+      })
+      visual_recognition.classify(params, function(err, response) {
+          if (err) {
+            console.log('error', err)
+          } else {
+            console.log(JSON.stringify(response, null, 2))
+            var resultTemp= [];
+
+            console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
+
+            let classesResponse = response.images[0].classifiers[0].classes;
+            if(!classesResponse){
+              res.sendStatus(404)
+            }
+
+            classesResponse.forEach(el=>{
+              if(el.score > .60){
+                resultTemp.push(el)
+              }
+            })
+            let result = JSON.stringify(resultTemp, null, 2)
+            res.send(result)
+          }
+        })
+   })
+
   },{crop:'fit', width:200, quality:'auto'})
   // .then((cloudUrl)=>{
   //   console.log('we fucking made it fam', cloudUrl)
-  //   var params = {
-  //     images_file: fs.createReadStream('./filesSmall/tempImgSmall.jpg'),
-  //     'classifier_ids':[`${endpoint}`],
-  //   }
   //
-  //   var visual_recognition = watson.visual_recognition({
-  //     api_key: process.env.WATSON_API,
-  //     version: 'v3',
-  //     version_date: '2016-05-20'
-  //   })
   //
   //   // setTimeout(()=>{
   //   //   console.log('we made it to the timeout')
   //   //   while(!'./filesSmall/tempImgSmall.jpg'){
   //   //     console.log('testing for small image file')
   //   //   }
-  //     visual_recognition.classify(params, function(err, response) {
-  //       if (err) {
-  //         console.log('error', err)
-  //       } else {
-  //         console.log(JSON.stringify(response, null, 2))
-  //         var resultTemp= [];
   //
-  //         console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
-  //
-  //         let classesResponse = response.images[0].classifiers[0].classes;
-  //         if(!classesResponse){
-  //           res.sendStatus(404)
-  //         }
-  //
-  //         classesResponse.forEach(el=>{
-  //           if(el.score > .60){
-  //             resultTemp.push(el)
-  //           }
-  //         })
-  //         let result = JSON.stringify(resultTemp, null, 2)
-  //         res.send(result)
-  //       }
-  //     })
   //   // }, 1000)
   // })
 
