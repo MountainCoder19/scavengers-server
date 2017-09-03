@@ -39,11 +39,11 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   //  See Configuration Options for more details and additional configuration methods.
 
   cloudinary.uploader.upload(file.path, function(result) {
-    console.log('made cloudinary');
     uploadSmall.single('result.url')
     // console.log(fs.createReadStream())
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
+    console.log('made then');
     var params = {
       images_file: fs.createReadStream(['./filesSmall/tempImgSmall.jpg']),
       'classifier_ids':[`${endpoint}`],
