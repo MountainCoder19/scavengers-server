@@ -43,7 +43,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     console.log(result.public_id);
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
-    console.log(cloudUrl);
+    cloudinary.v2.uploader.upload(cloudUrl.public_id,
+    { public_id: "filesSmall/tempImg" },
+    function(error, result) {console.log(result); console.log('./filesSmall/tempImg') });
   //   console.log(cloudinary.image(cloudUrl.url, {type:"fetch"}));
 
     // })
