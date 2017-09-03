@@ -45,7 +45,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   .then((cloudUrl)=>{
     console.log(cloudUrl);
     var params = {
-      images_file:cloudinary.image(cloudUrl.url, {type: "fetch"}),
+      images_file:cloudinary.image(cloudUrl.url.getElementsByTagName('img').src, {type: "fetch"}),
       'classifier_ids':[`${endpoint}`],
     }
     var visual_recognition = watson.visual_recognition({
