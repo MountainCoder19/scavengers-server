@@ -38,9 +38,9 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   });
   //  See Configuration Options for more details and additional configuration methods.
 
-  cloudinary.uploader.upload(file.path, {'public_id':'temp_img'}, function(result) {
+  cloudinary.uploader.upload(file.path, function(result) {
     // uploadSmall.single('result.url')
-    console.log(result);
+    console.log(result.public_id);
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     console.log(cloudUrl);
