@@ -43,7 +43,6 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     // console.log(fs.createReadStream())
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
-    console.log('we fucking made it fam', cloudUrl)
     var params = {
       images_file: fs.createReadStream(['./filesSmall/tempImgSmall.jpg']),
       'classifier_ids':[`${endpoint}`],
@@ -54,13 +53,15 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       version: 'v3',
       version_date: '2016-05-20'
     })
-
+    console.log('params', params);
   //   // setTimeout(()=>{
   //   //   console.log('we made it to the timeout')
   //   //   while(!'./filesSmall/tempImgSmall.jpg'){
   //   //     console.log('testing for small image file')
   //   //   }
       visual_recognition.classify(params, function(err, response) {
+        console.log('we fucking made it fam', params)
+
         if (err) {
           console.log('error', err)
         } else {
