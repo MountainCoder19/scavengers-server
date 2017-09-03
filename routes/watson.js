@@ -49,7 +49,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
    fs.writeFile('userimg.jpg', base64Data, 'base64', (err, suc) => {
      const filePathsToResize = [imgpath];
      var params = {
-         images_file: fs.createReadStream('./filesSmall/tempImgSmall.jpg'),
+         images_file: fs.createReadStream(filePathsToResize),
          'classifier_ids':[`${endpoint}`],
        }
 
