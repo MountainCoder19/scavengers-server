@@ -39,13 +39,13 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   //  See Configuration Options for more details and additional configuration methods.
 
   cloudinary.uploader.upload(file.path, function(result) {
-    uploadSmall.single('result.url')
-    console.log(storageSmall);
+    // uploadSmall.single('result.url')
+    console.log(storageSmall.getFilename());
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     console.log(cloudUrl);
     cloudinary.image(cloudUrl.url, {type:"fetch"}).then((data)=>{
-      console.log(data.getElementsByTagName('img').src);
+      console.log(data);
     })
     // var params = {
     //   images_file:pic,
