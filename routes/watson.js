@@ -38,12 +38,12 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   });
   //  See Configuration Options for more details and additional configuration methods.
 
-  cloudinary.uploader.upload(file.path, function(result) {
+  cloudinary.uploader.upload(file.path, {':public_id':'./filesSmall/tempImg'}, function(result) {
     // uploadSmall.single('result.url')
-    // console.log(storageSmall);
+    console.log(result);
   },{crop:'fit', width:200, quality:'auto'})
-  .then((cloudUrl)=>{
-    console.log(cloudinary.image(cloudUrl.url, {type:"fetch"}));
+  // .then((cloudUrl)=>{
+  //   console.log(cloudinary.image(cloudUrl.url, {type:"fetch"}));
 
     // })
     // var params = {
@@ -80,7 +80,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       //     res.send(result)
       //   }
       // })
-  })//END OF THEN
+  // })//END OF THEN
 
 
 
