@@ -31,7 +31,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
-
+  console.log(endpoint);
   const Resizer = new resizer.Resizer([file.path])
   // // use the Resizer.resize() method as a simple promise
   Resizer.resize().then((filePaths) => {
@@ -40,7 +40,6 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     images_file:fs.createReadStream(filePaths),
     'classifier_ids':[`${endpoint}`],
   }
-  console.log("PARAMS", params);
   var visual_recognition = watson.visual_recognition({
     api_key: process.env.WATSON_API,
     version: 'v3',
