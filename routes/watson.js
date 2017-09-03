@@ -43,12 +43,11 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     // console.log(fs.createReadStream())
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
-    console.log('made then');
     var params = {
       images_file: fs.createReadStream(['./filesSmall/tempImgSmall.jpg']),
       'classifier_ids':[`${endpoint}`],
     }
-
+    console.log('made then');
     var visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSON_API,
       version: 'v3',
