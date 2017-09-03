@@ -54,11 +54,11 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
 
-
-        let classesResponse = response.images[0].classifiers[0].classes;
-        if(classesResponse === undefined){
+        if(response.images[0].classifiers[0] === undefined){
           res.sendStatus(404)
         }
+        
+        let classesResponse = response.images[0].classifiers[0].classes;
         console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
 
         classesResponse.forEach(el=>{
