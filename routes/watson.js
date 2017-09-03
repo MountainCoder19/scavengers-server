@@ -28,6 +28,7 @@ const storageSmall = multer.diskStorage({
 const uploadSmall = multer({storageSmall});
 
 router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
+  console.log('made post');
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
