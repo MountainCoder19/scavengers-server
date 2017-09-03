@@ -30,7 +30,7 @@ class Resizer {
                 return this.imagePaths;
             }
             catch (error) {
-                return error;
+                throw error;
             }
         });
     }
