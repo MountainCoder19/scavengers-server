@@ -48,12 +48,12 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
       images_file:cloudinary.image(cloudUrl.url.getElementsByTagName('img').src, {type: "fetch"}),
       'classifier_ids':[`${endpoint}`],
     }
+    console.log('params', params);
     var visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSON_API,
       version: 'v3',
       version_date: '2016-05-20'
     })
-    console.log('params', params);
   //   // setTimeout(()=>{
   //   //   console.log('we made it to the timeout')
   //   //   while(!'./filesSmall/tempImgSmall.jpg'){
