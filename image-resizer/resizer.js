@@ -25,7 +25,8 @@ class Resizer {
                 const imageSizes = yield Promise.all(this.imagePaths.map((imagePath) => __awaiter(this, void 0, void 0, function* () { return yield this.getFileSizeInMegabytes(imagePath); })));
                 this.imagePaths.forEach((imagePath, i) => this.imageData.push({ imagePath: imagePath, imageSize: imageSizes[i] }));
                 if (this.imageData.length > 0) {
-                    return yield this.runResizeWorkflow();
+                    const newPaths = yield this.runResizeWorkflow();
+                    return newPaths[0];
                 }
                 return this.imagePaths[0];
             }
