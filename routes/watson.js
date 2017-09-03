@@ -44,7 +44,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   },{crop:'fit', width:200, quality:'auto'})
   .then((cloudUrl)=>{
     var params = {
-      images_file:'./filesSmall/tempImgSmall.jpg',
+      images_file:'./filesSmall/temp.jpg',
       'classifier_ids':[`${endpoint}`],
     }
     console.log('made then');
