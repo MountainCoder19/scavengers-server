@@ -28,7 +28,6 @@ const storageSmall = multer.diskStorage({
 const uploadSmall = multer({storageSmall});
 
 router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
-  console.log('made post');
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
@@ -40,6 +39,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   //  See Configuration Options for more details and additional configuration methods.
 
   cloudinary.uploader.upload(file.path, function(result) {
+    console.log('made cloudinary');
     uploadSmall.single('result.url')
     // console.log(fs.createReadStream())
   },{crop:'fit', width:200, quality:'auto'})
