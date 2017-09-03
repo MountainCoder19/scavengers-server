@@ -45,7 +45,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   .then((cloudUrl)=>{
     console.log(cloudinary.image(cloudUrl.url, {type:"fetch"}));
 
-    })
+    // })
     // var params = {
     //   images_file:pic,
     //   'classifier_ids':[`${endpoint}`],
