@@ -31,11 +31,10 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
   let file = req.file;
   let meta = req.body;
   let endpoint = req.params.endpoint;
-  console.log(endpoint);
   const Resizer = new resizer.Resizer([file.path])
   // // use the Resizer.resize() method as a simple promise
   Resizer.resize().then((filePaths) => {
-    console.log('filepaths', filePaths);
+    console.log('FILEPATHS', filePaths);
   var params = {
     images_file:fs.createReadStream(filePaths),
     'classifier_ids':[`${endpoint}`],
@@ -46,8 +45,6 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
     version_date: '2016-05-20'
   })
     visual_recognition.classify(params, function(err, response) {
-      console.log('WATSON CLASSIFY', params.classifier_ids)
-
       if (err) {
         console.log('error', err)
       } else {
@@ -59,7 +56,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         }
 
         let classesResponse = response.images[0].classifiers[0].classes;
-        console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
+        console.log('images are being recognized', response.images[0].classifiers[0].classes)
 
         classesResponse.forEach(el=>{
           if(el.score > .50){
