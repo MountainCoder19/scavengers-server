@@ -32,7 +32,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           description: 'Elken John. John Elkway. Whatever you call him - he\'s got a great rack.',
-          photo_url: 'clues_1384175267',
+          photo_url: 'clues_1123435983',
           photo_class: 'Elk_Statue'
         },
         {
