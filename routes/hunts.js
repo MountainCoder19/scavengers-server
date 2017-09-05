@@ -60,6 +60,21 @@ router.get('/clues/:id', (req, res, next)=>{
     })
 })
 
+router.get('/userhuntclue/:id', (req,res,next)=>{
+  let id= req.params.id;
+  knex('user_huntclue')
+  .select('completed')
+  .whereRaw(`hunt_id = 1 AND user_id = ${id}`)
+  .then(data=>{
+    console.log(data);
+    res.send(data)
+  })
+  .catch(err=>{
+    console.error('ERROR', err)
+  })
+
+
+})
 router.post('/', (req, res, next)=>{
   // const imgdata = req.body.data;
   // const path = './temp/userimg.jpg'
