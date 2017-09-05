@@ -62,7 +62,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         console.log('this is response.. find image classifers classes...', response.images[0].classifiers[0].classes)
 
         classesResponse.forEach(el=>{
-          if(el.score > .60){
+          if(el.score > .50){
             resultTemp.push(el)
           }
         })
