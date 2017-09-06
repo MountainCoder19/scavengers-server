@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../knex');
 
+
+router.get('/', (req, res, next)=>{
+  knex('users')
+    .select(['id','firstname', 'lastname', 'total_points'])
+    .orderBy('total_points')
+    .then((topUsers)=>{
+      res.send(topUsers)
+    })
+})
+
 router.get('/hunts/:id',(req, res, next)=>{
   let id = req.params.id;
   let result = [];
