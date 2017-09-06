@@ -6,7 +6,6 @@ const knex = require('../knex');
 router.get('/:id/?', (req, res, next)=>{
   let huntId = req.params.id;
   let userId = req.query.user;
-  console.log('in get', userId);
   knex('user_huntclue')
     .select('*')
     .whereRaw(`hunt_id = ${huntId} AND user_id = ${userId}`)
@@ -38,16 +37,14 @@ router.get('/:id/?', (req, res, next)=>{
           .select('description')
           .orderBy('clue_id')
           .then(newClues=>{
-            console.log('new user', newClues);
             res.send(newClues)
           })
         }, 1000)
-      )
+      ).catch(err=>{console.error('Error',err)})
       }else{
-        console.log('old user');
         res.send(clues)
       }
-    })
+    }).catch(err=>{console.error('Error:', err)})
 })
 
 router.get('/clues/:id', (req, res, next)=>{
@@ -58,18 +55,24 @@ router.get('/clues/:id', (req, res, next)=>{
     .then((clues)=>{
       res.send(clues[0])
     })
+    .catch(err=>{console.error(err)})
 })
 
-router.post('/', (req, res, next)=>{
-  // const imgdata = req.body.data;
-  // const path = './temp/userimg.jpg'
-  // const base64Data = imgdata.replace(/^data:([A-Za-z-+/]+);base64,/, '');
-  // fs.writeFile(path, base64Data, 'base64', (err, suc) => {
-  //     console.log(suc);
-  // });
-  // var buffer = new Buffer(req.body.data, 'base64');
-  // console.log(buffer);
+router.get('/userhuntclue/:id', (req,res,next)=>{
+  let id= req.params.id;
+  knex('user_huntclue')
+  .select('completed')
+  .whereRaw(`hunt_id = 1 AND user_id = ${id}`)
+  .then(data=>{
+    res.send(data)
+  })
+  .catch(err=>{
+    console.error('ERROR', err)
+  })
+
+
 })
+
 router.patch('/:id', (req, res, next)=>{
   let id = req.params.id;
   res.send('in patch with user id '+ id);

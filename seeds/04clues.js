@@ -6,12 +6,12 @@ exports.seed = function(knex, Promise) {
       // Inserts seed entries
       return knex('clues').insert([
         {
-          description: 'On the prowl for a bronze older lady? We\'re banking on the fact you might be able to find one here... sort of.',
+          description: 'I ain\'t saying she\'s a golddigger, but she is messing with a bronze cougar',
           photo_url: 'clues_1123435983',
           photo_class: 'Cougar_Statue'
         },
         {
-          description: 'Tailgating is rude on the highway, but this Chevy doesn\'t mind.',
+          description: 'Take a load off on my Chevy Tailgate',
           photo_url: 'clues_1436159940',
           photo_class: 'Chevy_Bench'
         },
@@ -26,7 +26,7 @@ exports.seed = function(knex, Promise) {
           photo_class: 'Sun_Dial'
         },
         {
-          description: 'Gary, Bugs, Kermit, and your favorite Cleaver family member are all waiting to play leap frog with you.',
+          description: 'Go play leap frog with your favorite neighborhood woodland creatures',
           photo_url: 'clues_302663712',
           photo_class: 'Pet_Park'
         },
@@ -36,7 +36,7 @@ exports.seed = function(knex, Promise) {
           photo_class: 'Elk_Statue'
         },
         {
-          description: 'Ever courted a floating head?',
+          description: 'This chief brings a whole new meaning to a figure "head"',
           photo_url: 'clues_1384175267',
           photo_class: 'Niwot_Chief'
         },

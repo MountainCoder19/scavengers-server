@@ -4,8 +4,8 @@ exports.seed = function(knex, Promise) {
   .del()
     .then(function () {
       return knex('hunts').insert([{
-        name: 'Test Hunt',
-        description: 'This is the test hunt for image recognition',
+        name: 'Pearl Street Hunt',
+        description: 'A scavenger hunt for unique items/places around downtown Boulder',
         total_clues: 10,
         total_points: 10
       }]);

@@ -55,7 +55,6 @@ router.post('/', (req, res, next)=>{
 router.patch('/:clue/?', (req, res, next)=>{
   let clue = req.params.clue;
   let userId = req.query.user
-  console.log('clue ', clue)
   knex('user_huntclue')
     .whereRaw(`clue_id = ${clue} AND user_id = ${userId}`)
     .update({
