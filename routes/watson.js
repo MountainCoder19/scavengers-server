@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const ffmpeg = require('../image-resizer/ffmpeg.js');
 // const resizer = require('../image-resizer/resizer.js')
-require('dotenv').load();
+// require('dotenv').load();
 const watson = require('watson-developer-cloud');
 const resizer = require('../image-resizer/resizer');
 const multer = require('multer');
