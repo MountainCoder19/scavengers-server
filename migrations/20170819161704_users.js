@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.string("lastname", 255).notNullable();
     table.string("accessToken", 255).notNullable();
     table.string("email", 255).notNullable();
+    table.integer("total_points").notNullable().defaultTo(0);
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   })

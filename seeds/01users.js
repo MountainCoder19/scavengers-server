@@ -19,7 +19,25 @@ exports.seed = function(knex, Promise) {
       firstname: "Jodie",
       lastname: "Rigali",
       accessToken: "EAASUE14fO4kBAHQYgb6ZCrlC74P6zH6eWttirQcukkN9EWrwU6nHa83byD7Hgi0cZChwZBjRRLZCd9ZB5r7ammdXfYlZBEbZADAqZB461KaMXhCpeWnwDVIanLNCTW0ES9kqCrLt9DcOmle7Pc5r6TQgdTy69T19H6QnTRkxehZCQyx6XxTErjIEGfzWepDFKku6YNaqlXqhN4gZDZD",
-      email: "jmrigali@ymail.com"}
+      email: "jmrigali@ymail.com"},
+      {id: 4,
+      firstname: "Ramsey",
+      lastname: "Bolton",
+      accessToken: "123",
+      total_points: -13,
+      email: "dogMeat@winterfell.com"},
+      {id: 5,
+      firstname: "Hodor",
+      lastname: "Hodor",
+      accessToken: "1234",
+      total_points: 100,
+      email: "hodor@holdthedoor.com"},
+      {id: 6,
+      firstname: "Cersei",
+      lastname: "Lanister",
+      accessToken: "12345",
+      total_points: -5004,
+      email: "president@jamiefanclub.com"}
     ]);
     }).then(function(){
       return knex.raw("SELECT setval('users_id_seq', (SELECT MAX(id) FROM users));");
