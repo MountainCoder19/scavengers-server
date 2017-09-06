@@ -51,7 +51,7 @@ router.post('/:endpoint', upload.single('file'), (req,res,next)=>{
         console.log(JSON.stringify(response, null, 2))
         var resultTemp= [];
 
-        if(response.images[0].classifiers[0] === undefined){
+        if(response.images[0].classifiers[0] === undefined || response.images[0].classifiers[0].length === 0){
           return res.sendStatus(404)
         }
 
