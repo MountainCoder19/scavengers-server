@@ -10,7 +10,7 @@ router.get('/:id/?', (req, res, next)=>{
     .select('*')
     .whereRaw(`hunt_id = ${huntId} AND user_id = ${userId}`)
     .join('hunts','user_huntclue.hunt_id', '=','hunts.id')
-    .select('description')
+    .select('name')
     .orderBy('clue_id')
     .then((clues)=>{
       if(clues.length == 0){
