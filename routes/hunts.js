@@ -72,7 +72,7 @@ router.get('/userhuntclue/:id', (req,res,next)=>{
   })
 
 
-}) 
+})
 
 router.patch('/:id', (req, res, next)=>{
   let id = req.params.id;
