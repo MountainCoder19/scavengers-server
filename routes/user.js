@@ -13,6 +13,7 @@ router.get('/', (req, res, next)=>{
 })
 
 router.get('/hunts/:id',(req, res, next)=>{
+  console.log('working');
   let id = req.params.id;
   let result = [];
   // NOTE: route for user specific hunts

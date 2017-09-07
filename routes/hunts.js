@@ -4,6 +4,7 @@ const knex = require('../knex');
 
 
 router.get('/:id/?', (req, res, next)=>{
+  console.log('made this route');
   let huntId = req.params.id;
   let userId = req.query.user;
   knex('user_huntclue')
