@@ -6,8 +6,10 @@ const knex = require('../knex');
 router.get('/', (req, res, next)=>{
   knex('users')
     .select(['id','firstname', 'lastname', 'total_points'])
-    .orderBy('total_points')
+    .orderBy('total_points','desc')
+    .limit(5)
     .then((topUsers)=>{
+      console.log(topUsers);
       res.send(topUsers)
     })
 })
@@ -31,9 +33,9 @@ router.get('/hunts/:id',(req, res, next)=>{
   // NOTE: MVP route
   knex('hunts')
     .select(['id', 'name', 'description', 'total_clues', 'total_points'])
-    .where('id', 1)
+    // .where('id', 1)
     .then((hunt)=>{
-      result.push(hunt[0]);
+      result.push(hunt);
       knex('users')
       .select('firstname', 'lastname')
       .where('users.id', id)

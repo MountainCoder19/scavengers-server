@@ -8,6 +8,11 @@ exports.seed = function(knex, Promise) {
         description: 'A scavenger hunt for unique items/places around downtown Boulder',
         total_clues: 10,
         total_points: 10
+      },{
+        name: 'Boulder Landmark Hunt',
+        description: 'Go explore Boulder, by finding these fun places!',
+        total_clues: 12,
+        total_points: 12
       }]);
     }).then(function(){
       return knex.raw("SELECT setval('hunts_id_seq', (SELECT MAX(id) FROM hunts));");
