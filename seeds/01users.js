@@ -27,7 +27,7 @@ exports.seed = function(knex, Promise) {
       firstname: "Ramsey",
       lastname: "Bolton",
       accessToken: "123",
-      total_points: -13,
+      total_points: -1000,
       email: "dogMeat@winterfell.com"},
       {id: 5,
       firstname: "Hodor",
@@ -39,7 +39,7 @@ exports.seed = function(knex, Promise) {
       firstname: "Cersei",
       lastname: "Lanister",
       accessToken: "12345",
-      total_points: -5004,
+      total_points: -666,
       email: "president@jamiefanclub.com"}
     ]);
     }).then(function(){
